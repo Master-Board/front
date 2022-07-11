@@ -1,8 +1,15 @@
+
+
 function Browse() {
+
+    console.log(1);
+
     return (
-      <div >
+      <div>
         
-        ㅎㅇ
+        <div className="abc">
+          Link
+        </div>
   
       </div>
     );

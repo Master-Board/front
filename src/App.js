@@ -7,14 +7,15 @@ import Browse from "./routes/Browse.js";
 function App() {
   return (
     <div className="App">
-      
+
       <Router>
         <Routes>
-          <Route path="/browse" element={<Browse />} />
+          <Route path="/browse" element={<Browse></Browse>} />
           <Route path="/mainpage" element={<Mainpage />} />
           {/* <Route path="*" element={} /> */}
         </Routes>
       </Router>
+
     </div>
   );
 }
