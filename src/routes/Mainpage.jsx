@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Tmdb from "../DB.js";
 import Row from "./Row.js";
-import Featured from "./Featured.js";
-import Header from "./Header.js";
+import Featured from "./Featured.jsx";
+import Header from "./Header.jsx";
+import userEvent from '@testing-library/user-event';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Mainpage() {
+
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [gameList, setGameList] = useState([]);
   const [blackHeader, setBalckHeader] = useState(false);
 
@@ -53,6 +59,8 @@ function Mainpage() {
           />
         ))}
       </section>
+
+      <button onClick={() => LogoutFunc()}>로그아웃</button>
 
       {/* {List.length <= 0 &&
                 <div className="loading">

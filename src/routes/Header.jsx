@@ -5,12 +5,12 @@ export default ({black}) => {
         <header className={black ? 'black' : ''}>
             <div className="header-logo">
                 <a href="/mainpage">
-                    <img src="#" alt="페이지 로고/홈버튼"/>
+                    <img src="img/logo.PNG" alt="페이지 로고/홈버튼"/>
                 </a>
             </div>
             <div className="header-user">
                 <a href="/mainpage">
-                    <img src="#" alt="User"/>
+                    <img src="img/user.png" alt="User"/>
                 </a>
             </div>
         </header>
