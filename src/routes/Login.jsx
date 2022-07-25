@@ -1,55 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginUser } from "../reducer/userSlice";
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Login(){
+function Login(props){
 
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
 
-    const [loading, setLoading] = useState(false);
     const [msg, setMsg] = useState("");
 
     useEffect(() => {
-        if (msg && loading) {
-            setTimeout(() => {
-                setMsg("");
-                setLoading(false);
-            }, 1500);
-        }
-    }, [msg, loading]);
+    }, []);
 
-    const LoginFunc = (e) => {
-        e.preventDefault();
-        if(!id){
-            return alert("ID를 입력하세요.");
-        }
-        else if(!pw){
-            return alert("Password를 입력하세요.");
-        }
-        else{
-            axios.post("Endpoint", body)
-            .then((res) => {
-                console.log(res.data);
-                if(res.data.code === 200){
-                    console.log("로그인");
-                    dispatch(loginUser(res.data.userInfo));
-                    setMsg("");
-                }
-                if(res.data.code === 400){
-                    setMsg("");
-                }
-                if(res.data.code === 401){
-                    setMsg("");
-                }
-                if(res.data.code === 402){
-                    setMsg("");
-                }
-                })
-        }
-        setLoading(true);
-    }
 
     return (
         <div className="login">
@@ -88,11 +51,9 @@ function Login(){
                 className="btn btn-outline-secondary"
                 type="button"
                 id="button-addon2"
-                disabled={loading}
                 >
                 로그인
             </button>
-            {msg}
         </div>
     );
 };

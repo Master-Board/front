@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Tmdb from "../DB.js";
-import Row from "./Row.js";
+import Row from "./Row.jsx";
 import Featured from "./Featured.jsx";
 import Header from "./Header.jsx";
 import userEvent from '@testing-library/user-event';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Mainpage() {
+function Mainpage(props) {
 
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  const [gameList, setGameList] = useState([]);
   const [blackHeader, setBalckHeader] = useState(false);
+  const [featuredData, setFeaturedData] = useState("");
 
   useEffect(() => {
-    const loadAll = async () => {
-      let list = await Tmdb.getHomeList();
-      setGameList(list);
-    };
-
-    loadAll();
-  }, []);
+    let randomChoosen = Math.floor(Math.random() * (props.games.length));
+    let choosen = props.games[randomChoosen];
+    setFeaturedData(choosen);
+  })
 
   useEffect(() => {
     const scrollListener = () => {
@@ -39,23 +33,31 @@ function Mainpage() {
     };
   }, []);
 
+  const LogoutFunc = () => {
+    console.log("로그아웃");
+  }
+
+  console.log(featuredData);
+
   return (
     <div className="page">
-      <Header black={blackHeader} />
+      <Header black={blackHeader} user={props.user} setUser={props.setUser} />
 
       {/* {featuredData &&
                 <Featured />
             } */}
 
-      <Featured />
+      <Featured user={props.user} setUser={props.setUser} />
 
       <section className="lists">
-        {gameList.map((item, key) => (
+        {props.games && props.games.map((item, key) => (
           <Row
             key={key}
             title={item.title}
             items={item.items}
             people={item.people}
+            user={props.user} 
+            setUser={props.setUser}
           />
         ))}
       </section>

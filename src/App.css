@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Roboto:wght@400;700&display=swap');
 
-
+.login{
+  width: 500px;
+  margin: 100px auto auto auto;
+}
 
 #wrap{
   position: relative;

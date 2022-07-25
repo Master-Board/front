@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({black}) => {
+export default ({black}, props) => {
     return (
         <header className={black ? 'black' : ''}>
             <div className="header-logo">
