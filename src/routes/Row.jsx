@@ -28,7 +28,7 @@ export default (props) => {
 
   const handleRightArrow = () => {
     let x = scrollX - Math.round(window.innerWidth / 2);
-    let listW = props.items.results?.length * 150;
+    let listW = props.rooms.results?.length * 150;
     if (window.innerWidth - listW > x) {
       x = window.innerWidth - listW - 60;
     }
@@ -37,7 +37,7 @@ export default (props) => {
 
   return (
     <div className="Row" style={{backgroundColor: '#111'}}>
-      <h2 style={{color: '#fff'}} >
+      <h2 style={{color: '#fff', marginBottom: '10px'}}>
         {props.title === 'parade' ? "퍼레이드" : props.title === 'deception' ? "디셉션" : props.title === 'tichu' ? "티츄" : props.title === 'fertility' ? "퍼틸리티" : null }
       </h2>
       <div className="Row-left" onClick={handleLeftArrow}>
@@ -54,10 +54,10 @@ export default (props) => {
             marginLeft: scrollX,
           }}
         > 
-          <img width={"300px"} height={"300px"} />
+          <img width={"300px"} height={"300px"} src={`${props.img}`} />
           
-          <div>
-            <button style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '20px 10px 20px 20px'}} variant="primary" onClick={SearchModalhandleShow}><img src="img/add.png" alt="+" style={{width: '100px', height: '100px'}} /></button>
+          <div style={{width: '150px'}}>
+            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '30px 10px 20px 25px'}} variant="primary" onClick={SearchModalhandleShow}><img src="img/add.png" alt="+" style={{width: '100px', height: '100px'}} /></button>
             <Modal show={roomSearchModal} onHide={SearchModalhandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>방 번호를 입력하세요</Modal.Title>
@@ -78,7 +78,7 @@ export default (props) => {
                 </Link>
               </Modal.Footer>
             </Modal>
-            <button style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '20px 10px 20px 20px'}} variant="primary" onClick={makeModalhandleShow}><img src="img/search.png" alt="Q" style={{width: '100px', height: '100px'}} /></button>
+            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '20px 10px 20px 25px'}} variant="primary" onClick={makeModalhandleShow}><img src="img/search.png" alt="Q" style={{width: '100px', height: '100px'}} /></button>
             <Modal show={roomMakeModal} onHide={makeModalhandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>방 번호를 입력하세요</Modal.Title>
@@ -97,11 +97,11 @@ export default (props) => {
             </Modal>
           </div>
 
-          {props.items.results?.length > 0 &&
-            props.items.results.map((item, key) => (
+          {
+            props.rooms.results.map((item, key) => (
               <div key={key} className="Row-item">
                 <img src="#" height={"300px"}/>
-                <div style={{color: '#fff'}}>{props.items.results[key].number +  "  / " + props.people}</div>
+                <div style={{color: '#fff'}}>{props.rooms.results[key].number +  "  / " + props.people}</div>
               </div>
             ))}
         </div>

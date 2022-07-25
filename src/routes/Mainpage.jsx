@@ -15,7 +15,7 @@ function Mainpage(props) {
     let randomChoosen = Math.floor(Math.random() * (props.games.length));
     let choosen = props.games[randomChoosen];
     setFeaturedData(choosen);
-  })
+  }, []);
 
   useEffect(() => {
     const scrollListener = () => {
@@ -37,38 +37,23 @@ function Mainpage(props) {
     console.log("로그아웃");
   }
 
-  console.log(featuredData);
-
   return (
     <div className="page">
       <Header black={blackHeader} user={props.user} setUser={props.setUser} />
-
-      {/* {featuredData &&
-                <Featured />
-            } */}
-
-      <Featured user={props.user} setUser={props.setUser} />
-
+      <Featured featuredData={featuredData} user={props.user} setUser={props.setUser} />
       <section className="lists">
         {props.games && props.games.map((item, key) => (
           <Row
             key={key}
             title={item.title}
-            items={item.items}
+            rooms={item.rooms}
             people={item.people}
             user={props.user} 
             setUser={props.setUser}
+            img={item.image}
           />
         ))}
       </section>
-
-      <button onClick={() => LogoutFunc()}>로그아웃</button>
-
-      {/* {List.length <= 0 &&
-                <div className="loading">
-                    <img src="#" alt=""/>
-                </div>
-            } */}
     </div>
   );
 }

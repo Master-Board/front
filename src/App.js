@@ -14,27 +14,31 @@ function App() {
   const [user, setUser] = useState({id:"형진", password:"1234", isLogIn: true});
   const [games, setGames] = useState([{
     title: 'parade',
-    items: {results: [{number: 4}, {number: 3}, {number: 1}, {number: 5}, {number: 6}, {number: 2}, {number: 1}, {number: 4}, {number: 2}, {number: 6}, {number: 6}, {number: 5}]},
+    rooms: {results: [{number: 4}, {number: 3}, {number: 1}, {number: 5}, {number: 6}, {number: 2}, {number: 1}, {number: 4}, {number: 2}, {number: 6}, {number: 6}, {number: 5}]},
     people: 6,
-    grade: 4.5
+    grade: 4.5,
+    image: 'img/parade.jpeg'
   },
   {
     title: 'deception',
-    items: {results: [{number:2}, {number: 5}, {number: 2}, {number: 1}, {number: 2}]},
+    rooms: {results: [{number:2}, {number: 5}, {number: 2}, {number: 1}, {number: 2}]},
     people: 6,
-    grade: 4.5
+    grade: 4.5,
+    image: 'img/deception.webp'
   },
   {
     title: 'tichu',
-    items: {results: [{number:2}, {number: 3}, {number: 1}]},
+    rooms: {results: [{number:2}, {number: 3}, {number: 1}]},
     people: 4,
-    grade: 4.5
+    grade: 4.5,
+    image: 'img/tichu.png'
   },
   {
     title: 'fertility',
-    items: {results: [{number:2}, {number: 3}, {number: 1}]},
+    rooms: {results: []},
     people: 6,
-    grade: 4.5
+    grade: 4.5,
+    image: 'img/fertility.jpg'
   }]);
 
   return (
