@@ -51,6 +51,8 @@ function Mainpage(props) {
             user={props.user} 
             setUser={props.setUser}
             img={item.image}
+            games={props.games}
+            setGames={props.setGames}
           />
         ))}
       </section>

@@ -26,11 +26,31 @@ function Row(props) {
 
   const handleRightArrow = () => {
     let x = scrollX - Math.round(window.innerWidth / 2);
-    let listW = props.rooms.results?.length * 150;
+    let listW = props.rooms?.length * 150;
     if (window.innerWidth - listW > x) {
       x = window.innerWidth - listW - 60;
     }
     setScrollX(x);
+  };
+
+  const addRoom = () => {
+    let index = 0;
+    if(props.title == 'deception'){
+      index = 1;
+    }else if(props.title == 'tichu'){
+      index = 2;
+    }else if(props.title == 'fertility'){
+      index = 3;
+    }
+    const games = props.games;
+    console.log(games);
+    console.log(games[index].rooms);
+    const newRoom = {
+      number: roomNumber * 1,
+      people: 1,
+    };
+    games[index].rooms.push(newRoom);
+    console.log(games[index].rooms);
   };
 
   return (
@@ -55,10 +75,10 @@ function Row(props) {
           <img width={"300px"} height={"300px"} src={`${props.img}`} />
           
           <div style={{width: '150px'}}>
-            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '30px 10px 20px 25px'}} variant="primary" onClick={SearchModalhandleShow}><img src="img/add.png" alt="+" style={{width: '100px', height: '100px'}} /></button>
+            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '30px 0px 20px 30px'}} variant="primary" onClick={SearchModalhandleShow}><img src="img/add.png" alt="+" style={{width: '100px', height: '100px'}} /></button>
             <Modal show={roomSearchModal} onHide={SearchModalhandleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>방 번호를 입력하세요</Modal.Title>
+                <Modal.Title>새로운 방 번호를 입력하세요</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <input onChange={(event) => {
@@ -72,6 +92,7 @@ function Row(props) {
                 <Link to ={'/' + props.title + '/' + roomNumber } >
                   <Button variant="primary" onClick={() => {
                     SearchModalhandleClose()
+                    addRoom()
                   }}
                   >
                     Create!
@@ -79,10 +100,10 @@ function Row(props) {
                 </Link>
               </Modal.Footer>
             </Modal>
-            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '20px 10px 20px 25px'}} variant="primary" onClick={makeModalhandleShow}><img src="img/search.png" alt="Q" style={{width: '100px', height: '100px'}} /></button>
+            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '20px 0px 20px 30px'}} variant="primary" onClick={makeModalhandleShow}><img src="img/search.png" alt="Q" style={{width: '100px', height: '100px'}} /></button>
             <Modal show={roomMakeModal} onHide={makeModalhandleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>방 번호를 입력하세요</Modal.Title>
+                <Modal.Title>참가할 방 번호를 입력하세요</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <input />
@@ -92,17 +113,17 @@ function Row(props) {
                   Close
                 </Button>
                 <Button variant="primary" onClick={makeModalhandleClose}>
-                  Create!
+                  Search!
                 </Button>
               </Modal.Footer>
             </Modal>
           </div>
 
           {
-            props.rooms.results.map((item, key) => (
+            props.rooms.map((item, key) => (
               <div key={key} className="Row-item">
                 <img src="#" height={"300px"}/>
-                <div style={{color: '#fff'}}>{props.rooms.results[key].number +  "  / " + props.people}</div>
+                <div style={{color: '#fff'}}>방 번호: {props.rooms[key].number}, 인원: {props.rooms[key].people +  "  / " + props.people}</div>
               </div>
             ))}
         </div>
