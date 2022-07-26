@@ -1,13 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState, useCallback } from "react";
+import { useEffect } from 'react';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
-import io from 'socket.io-client';
 
-const socket = io("http://localhost:3000");
-
-export default (props) => {
+function Row(props) {
   const [scrollX, setScrollX] = useState(0);
   const [roomSearchModal, setRoomSearchModal] = useState(false);
   const [roomMakeModal, setRoomMakeModal] = useState(false);
@@ -72,7 +70,10 @@ export default (props) => {
                   Close
                 </Button>
                 <Link to ={'/' + props.title + '/' + roomNumber } >
-                  <Button variant="primary" onClick={SearchModalhandleClose}>
+                  <Button variant="primary" onClick={() => {
+                    SearchModalhandleClose()
+                  }}
+                  >
                     Create!
                   </Button>
                 </Link>
@@ -109,3 +110,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Row;
