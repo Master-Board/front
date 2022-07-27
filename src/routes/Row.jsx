@@ -1,6 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import React, { useState, useCallback } from "react";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
@@ -9,8 +9,8 @@ function Row(props) {
   const [scrollX, setScrollX] = useState(0);
   const [roomSearchModal, setRoomSearchModal] = useState(false);
   const [roomMakeModal, setRoomMakeModal] = useState(false);
-  const SearchModalhandleClose = () => setRoomSearchModal(false);
-  const SearchModalhandleShow = () => setRoomSearchModal(true);
+  const searchModalhandleClose = () => setRoomSearchModal(false);
+  const searchModalhandleShow = () => setRoomSearchModal(true);
   const makeModalhandleClose = () => setRoomMakeModal(false);
   const makeModalhandleShow = () => setRoomMakeModal(true);
 
@@ -35,11 +35,11 @@ function Row(props) {
 
   const addRoom = () => {
     let index = 0;
-    if(props.title == 'deception'){
+    if (props.title == "deception") {
       index = 1;
-    }else if(props.title == 'tichu'){
+    } else if (props.title == "tichu") {
       index = 2;
-    }else if(props.title == 'fertility'){
+    } else if (props.title == "fertility") {
       index = 3;
     }
     const games = props.games;
@@ -54,9 +54,17 @@ function Row(props) {
   };
 
   return (
-    <div className="Row" style={{backgroundColor: '#111'}}>
-      <h2 style={{color: '#fff', marginBottom: '10px'}}>
-        {props.title === 'parade' ? "퍼레이드" : props.title === 'deception' ? "디셉션" : props.title === 'tichu' ? "티츄" : props.title === 'fertility' ? "퍼틸리티" : null }
+    <div className="Row" style={{ backgroundColor: "#111" }}>
+      <h2 style={{ color: "#fff", marginBottom: "10px" }}>
+        {props.title === "parade"
+          ? "퍼레이드"
+          : props.title === "deception"
+          ? "디셉션"
+          : props.title === "tichu"
+          ? "티츄"
+          : props.title === "fertility"
+          ? "퍼틸리티"
+          : null}
       </h2>
       <div className="Row-left" onClick={handleLeftArrow}>
         <img src="https://img.icons8.com/ios-glyphs/50/FFFFFF/chevron-left.png" />
@@ -71,37 +79,75 @@ function Row(props) {
           style={{
             marginLeft: scrollX,
           }}
-        > 
-          <img width={"300px"} height={"300px"} src={`${props.img}`} />
-          
-          <div style={{width: '150px'}}>
-            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '30px 0px 20px 30px'}} variant="primary" onClick={SearchModalhandleShow}><img src="img/add.png" alt="+" style={{width: '100px', height: '100px'}} /></button>
-            <Modal show={roomSearchModal} onHide={SearchModalhandleClose}>
+        >
+          <div style={{position : "relative", width: "300px", height: "300px"}}>
+            <img width={"300px"} height={"300px"} src={`${props.img}`} />
+            <button id="rowRepresentImgBtn" >게임설명</button>
+          </div>
+          <div style={{ width: "150px" }}>
+            <button
+              className="roomButton"
+              style={{
+                display: "block",
+                backgroundColor: "#111",
+                border: "none",
+                padding: "30px 0px 20px 30px",
+              }}
+              variant="primary"
+              onClick={makeModalhandleShow}
+            >
+              <img
+                src="img/add.png"
+                alt="+"
+                style={{ width: "100px", height: "100px" }}
+              />
+            </button>
+            <Modal show={roomMakeModal} onHide={makeModalhandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>새로운 방 번호를 입력하세요</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <input onChange={(event) => {
+                <input
+                  onChange={(event) => {
                     setRoomNumber(event.target.value);
-                }}/>
+                  }}
+                />
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={SearchModalhandleClose}>
+                <Button variant="secondary" onClick={makeModalhandleClose}>
                   Close
                 </Button>
-                <Link to ={'/' + props.title + '/' + roomNumber } >
-                  <Button variant="primary" onClick={() => {
-                    SearchModalhandleClose()
-                    addRoom()
-                  }}
+                <Link to={"/" + props.title + "/" + roomNumber}>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      makeModalhandleClose();
+                      addRoom();
+                    }}
                   >
                     Create!
                   </Button>
                 </Link>
               </Modal.Footer>
             </Modal>
-            <button className="roomButton" style={{display: 'block', backgroundColor: '#111', border: 'none', padding: '20px 0px 20px 30px'}} variant="primary" onClick={makeModalhandleShow}><img src="img/search.png" alt="Q" style={{width: '100px', height: '100px'}} /></button>
-            <Modal show={roomMakeModal} onHide={makeModalhandleClose}>
+            <button
+              className="roomButton"
+              style={{
+                display: "block",
+                backgroundColor: "#111",
+                border: "none",
+                padding: "20px 0px 20px 30px",
+              }}
+              variant="primary"
+              onClick={searchModalhandleShow}
+            >
+              <img
+                src="img/search.png"
+                alt="Q"
+                style={{ width: "100px", height: "100px" }}
+              />
+            </button>
+            <Modal show={roomSearchModal} onHide={searchModalhandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>참가할 방 번호를 입력하세요</Modal.Title>
               </Modal.Header>
@@ -109,27 +155,31 @@ function Row(props) {
                 <input />
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={makeModalhandleClose}>
+                <Button variant="secondary" onClick={searchModalhandleClose}>
                   Close
                 </Button>
-                <Button variant="primary" onClick={makeModalhandleClose}>
+                <Button variant="primary" onClick={searchModalhandleClose}>
                   Search!
                 </Button>
               </Modal.Footer>
             </Modal>
           </div>
 
-          {
-            props.rooms.map((item, key) => (
-              <div key={key} className="Row-item">
-                <img src="#" height={"300px"}/>
-                <div style={{color: '#fff'}}>방 번호: {props.rooms[key].number}, 인원: {props.rooms[key].people +  "  / " + props.people}</div>
-              </div>
-            ))}
+          {props.rooms.map((item, key) => (
+            <div key={key} className="Row-item">
+              <Link to={ "/" + props.title + "/" + props.rooms[key].number}>
+                <img src="#" height={"300px"} />
+                <div style={{ color: "#fff" }}>
+                  방 번호: {props.rooms[key].number}, 인원:{" "}
+                  {props.rooms[key].people + "  / " + props.people}
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Row;

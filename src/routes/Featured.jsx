@@ -15,7 +15,7 @@ export default  (props) => {
                         <div className="featured-points"> {props.featuredData.grade} points / 평점</div> 
                         <div className="featured-seasons" style={{color: '#c44'}}> {props.featuredData.people}명 / 인원수</div>
                     </div>
-                    <div className="featured-description">안녕하세요? 게임소개 어쩌구저쩌구</div>
+                    <div className="featured-description">{props.featuredData.content}</div>
                     <div className="featured-buttons">
                         <a className="featured-playButton" href="/">▶ Play</a>
                         <a className="featured-howtoButton" href="/">How to</a>
