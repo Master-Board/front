@@ -169,11 +169,12 @@ function Row(props) {
             <div key={key} className="Row-item">
               <Link to={ "/" + props.title + "/" + props.rooms[key].number}>
                 <img src="#" height={"300px"} />
-                <div style={{ color: "#fff" }}>
-                  방 번호: {props.rooms[key].number}, 인원:{" "}
-                  {props.rooms[key].people + "  / " + props.people}
-                </div>
               </Link>
+              <div style={{ color: "#fff" }}>
+                방 번호: {props.rooms[key].number}, 인원:{" "}
+                {props.rooms[key].people + "  / " + props.people}
+              </div>
+              
             </div>
           ))}
         </div>
