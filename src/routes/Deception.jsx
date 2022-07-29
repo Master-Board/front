@@ -10,11 +10,11 @@ function Deception(props) {
   const [users, setUsers] = useState('');
   const [room, setRoom] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(['hi', 'hello']);
   const { roomNumber } = useParams();
 
   let isSentByCurrentUser = false;
-  if(user === )
+  // if(user === )
 
   const ENDPOINT = "http://localhost:3000";
 
@@ -23,48 +23,47 @@ function Deception(props) {
     setRoom(roomNumber);
     console.log(user, room);
 
-    socket.io(ENDPOINT);
+    // socket.io(ENDPOINT);
 
-    socket.emit("join", { user, room }, (error) => {
-      console.log(error);
-    });
+    // socket.emit("join", { user, room }, (error) => {
+    //   console.log(error);
+    // });
     
   }, [ENDPOINT]);
 
-  useEffect(() => {
-    // 메세지 받기
-    socket.on("message", (message) => {
-      setMessages([...messages, message]);
-    });
+  // useEffect(() => {
+  //   // 메세지 받기
+  //   socket.on("message", (message) => {
+  //     setMessages([...messages, message]);
+  //   });
 
-    socket.on("roomUsers", ({users}) => {
-      setUsers(users);
-    });
-  }, [messages]);
+  //   socket.on("roomUsers", ({users}) => {
+  //     setUsers(users);
+  //   });
+  // }, [messages]);
 
-  const sendMessage = (e) => {
-    e.preventDefault();
-    if(message) {
-      socket.emit("sendMessage", message, setMessage(""));
-    }
-  };
+  // const sendMessage = (e) => {
+  //   e.preventDefault();
+  //   if(message) {
+  //     socket.emit("sendMessage", message, setMessage(""));
+  //   }
+  // };
 
   return (
       <div id="deception" style={{background: 'url("img/background.webp")', backgroundSize: 'cover', width: '100%', height: '100%'}}>
         {user}님 어서오세요! #{room} 디셉션 방입니다
         <div style={{width: "300px", height: "600px", border: "2px solid #111"}}>
-          <div className="messages" style={{height: "550px"}}>
-            {messages.map((message, i) => {
-              <div key={i}>
-                <p>{user}</p>
-                <p>{message}</p>
+          <div className="messages" style={{width: "290px", height: "550px", border: "1px solid #111"}}>
+            {messages.map((message, i) => (
+              <div key={i} >
+                <div>{user} : {message}</div>
               </div>
-            })}
+            ))}
           </div>
           <form id="form" action="">
             <input id="input" autocomplete="off" onChange={(event) => {
               setMessage(event.target.value);
-              }} /><button onClick={ sendMessage }>Send</button>
+              }} /><button >Send</button>
           </form>
         </div>
       </div>
