@@ -10,10 +10,10 @@ function Deception(props) {
   const [users, setUsers] = useState('');
   const [room, setRoom] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState(['hi', 'hello']);
+  const [messages, setMessages] = useState([{name: "ju", message: "hi"}, {name: "ju", message: "hello"}]);
   const { roomNumber } = useParams();
 
-  let isSentByCurrentUser = false;
+  // let isSentByCurrentUser = false;
   // if(user === )
 
   const ENDPOINT = "http://localhost:3000";
@@ -29,7 +29,7 @@ function Deception(props) {
     //   console.log(error);
     // });
     
-  }, [ENDPOINT]);
+  }, []);
 
   // useEffect(() => {
   //   // 메세지 받기
@@ -49,22 +49,37 @@ function Deception(props) {
   //   }
   // };
 
+  const Disconnect = () => {
+    socket.emit("disconnect", (user) => {
+      console.log('user disconnected');
+    })
+  }
+
   return (
       <div id="deception" style={{background: 'url("img/background.webp")', backgroundSize: 'cover', width: '100%', height: '100%'}}>
         {user}님 어서오세요! #{room} 디셉션 방입니다
+        <button onClick={Disconnect}><Link to="/mainpage">나가기</Link></button>
         <div style={{width: "300px", height: "600px", border: "2px solid #111"}}>
-          <div className="messages" style={{width: "290px", height: "550px", border: "1px solid #111"}}>
+          <div style={{backgroundColor: "#eee"}}>Room : {room}</div>
+          <div className="messages" style={{width: "290px", height: "540px", border: "1px solid #111"}}>
             {messages.map((message, i) => (
               <div key={i} >
-                <div>{user} : {message}</div>
+                <div>{message.name} : {message.message}</div>
               </div>
             ))}
           </div>
-          <form id="form" action="">
+          <input type="text" placeholder="메세지를 입력하세요" onChange={(e)=>setMessage({name: user, message: e.target.value})} />
+          <button onClick={(e)=>{
+            e.preventDefault();
+            console.log(message);
+            setMessages([...messages, message]);
+            // sendMessage({name: user, message: e.target.value})
+          }}>send</button>
+          {/* <form id="form" action="">
             <input id="input" autocomplete="off" onChange={(event) => {
               setMessage(event.target.value);
               }} /><button >Send</button>
-          </form>
+          </form> */}
         </div>
       </div>
     );
