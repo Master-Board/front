@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Tmdb from "../DB.js";
 import Row from "./Row.jsx";
 import Featured from "./Featured.jsx";
 import Header from "./Header.jsx";

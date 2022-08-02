@@ -10,44 +10,42 @@ function Deception(props) {
   const [users, setUsers] = useState('');
   const [room, setRoom] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([{name: "ju", message: "hi"}, {name: "ju", message: "hello"}]);
+  const [messages, setMessages] = useState([{name: "형진", message: "hi"}, {name: "형진", message: "hello"}]);
   const { roomNumber } = useParams();
 
-  // let isSentByCurrentUser = false;
-  // if(user === )
 
-  const ENDPOINT = "http://localhost:3000";
+  const ENDPOINT = "http://ec2-13-125-172-64.ap-northeast-2.compute.amazonaws.com:3000/";
 
   useEffect(() => {
     setUser(props.user.id);
     setRoom(roomNumber);
     console.log(user, room);
 
-    // socket.io(ENDPOINT);
+    socket = io(ENDPOINT);
 
-    // socket.emit("join", { user, room }, (error) => {
-    //   console.log(error);
-    // });
+    socket.emit("connection", (e) => {
+      console.log(e);
+    });
+
+    socket.emit("joindeception", {room});
     
   }, []);
 
-  // useEffect(() => {
-  //   // 메세지 받기
-  //   socket.on("message", (message) => {
-  //     setMessages([...messages, message]);
-  //   });
+  useEffect(() => {
+    // 메세지 받기
+    socket.on("chatting", (message) => {
+      console.log(message);
+      setMessages([...messages, message]);
+    });
 
-  //   socket.on("roomUsers", ({users}) => {
-  //     setUsers(users);
-  //   });
-  // }, [messages]);
+  }, []);
 
-  // const sendMessage = (e) => {
-  //   e.preventDefault();
-  //   if(message) {
-  //     socket.emit("sendMessage", message, setMessage(""));
-  //   }
-  // };
+  const sendMessage = () => {
+    if(message) {
+      console.log(message);
+      socket.emit("chatting", {message});
+    }
+  };
 
   const Disconnect = () => {
     socket.emit("disconnect", (user) => {
@@ -72,14 +70,9 @@ function Deception(props) {
           <button onClick={(e)=>{
             e.preventDefault();
             console.log(message);
-            setMessages([...messages, message]);
-            // sendMessage({name: user, message: e.target.value})
+            setMessage({name: user, message: e.target.value});
+            sendMessage();
           }}>send</button>
-          {/* <form id="form" action="">
-            <input id="input" autocomplete="off" onChange={(event) => {
-              setMessage(event.target.value);
-              }} /><button >Send</button>
-          </form> */}
         </div>
       </div>
     );
